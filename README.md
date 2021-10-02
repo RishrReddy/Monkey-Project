@@ -1,7 +1,7 @@
 ![Jungle Sanctuary](https://www.goeco.org/_media/media/1299/13972.jpg)
 
   <p align="center">
-    Welcome to Jungle Sanctuary!!!
+    <strong>Welcome to Jungle Sanctuary!!!</strong>
 </p>
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -44,14 +44,13 @@ The journey of a primate in brief is as follows:
 <!-- List of Features -->
 ## List of Features
 The project Jungle Sanctuary provides following features/benefits to the user:
-```
 * Provides the list on all the primates housed in the sanctuary at point of time along with the details of their present location.
 * Provides user the flexibility to look up for primates belonging to a particular type of species as to where they are currently housed.
 * The project auto generates the list for food items with the quantity to be shopped based on every primates favorite food choice and their size.
 * Initially the Sanctuary starts with a fixed number of isolation and enclosure units, but the project provides flexibity to expand these units when there is sufficient funding support.
 * It allows provides user the functionality to create signs for a particular Enclosure Unit. 
   The Sign would include primates housed in that enclosure along with their name,gender and favorite food.These signs would be helpful for the visiors to know about the inhabitants.__
-```
+
 <!-- Getting Started -->
 ## Getting Started
 
@@ -68,11 +67,20 @@ To successfully implement the project, the following assumptions have been made
 
 <!-- Limitations -->
 ## Limitations
+1. The jungle sanctuary currently only houses monkeys, but can be extended to house any type of primates.
+2. A centralised Database is not used yet, which will be a feature in coming days to have better storage system even when monkey is transferred 
+to other sanctuaries.
 
 <!-- Citations -->
 ## Citations
-
+1. [Using Comparator](https://www.tutorialspoint.com/java/java_using_comparator.htm)
+2. [JavaDoc for Using ID generator](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html)
 
 
 <!-- Contact -->
 ## Contact
+```
+Name : Rishita Reddy
+Email : reddy.ri@northeatern.edu
+Project Link: https://github.com/RishrReddy/Monkey-Project.git
+```
