@@ -1,3 +1,8 @@
+![Jungle Sanctuary](https://www.goeco.org/_media/media/1299/13972.jpg)
+
+  <p align="center">
+    Welcome to Jungle Sanctuary!!!
+</p>
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -25,9 +30,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-![Jungle Sanctuary](https://www.goeco.org/_media/media/1299/13972.jpg)
 
-Jungle Sanctuary is a beautiful urban wildlife refuge housing primates of various species (mostly monkeys). While nothing beats actually being there, here is a project to help you experience how a wildlife sanctuary functions.
+**Jungle Sanctuary** is a beautiful urban wildlife refuge housing primates of various species (mostly monkeys). While nothing beats actually being there, here is a project to help you experience how a wildlife sanctuary functions.
 Everything from welcoming the primates to performing medical check, from allocating housing units to shopping for the amazing beings housed, it's all here. Let's dive in.
 
 The journey of a primate in brief is as follows:
