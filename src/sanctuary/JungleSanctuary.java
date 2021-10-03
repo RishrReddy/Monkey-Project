@@ -1,6 +1,5 @@
 package sanctuary;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
 public interface JungleSanctuary {
   /**
    * Produces list of all the species entering the
-   * Sanctuary
+   * Sanctuary.
    *
    * @return List of all Monkeys currently in Sanctuary.
    */
@@ -44,12 +43,12 @@ public interface JungleSanctuary {
    * providing details like Name, Sex and Favorite Food
    * of monkey stored in that particular Enclosure.
    *
-   * @param enclosureID enclosure ID of the enclosure for which the
+   * @param enclosureId enclosure ID of the enclosure for which the
    *                    sign has to be produced.
    * @return String of details like Name,sex,and favorite food of the
-   * monkeys housed in a particular enclosure.
+   *         monkeys housed in a particular enclosure.
    */
-  String produceSign(int enclosureID);
+  String produceSign(int enclosureId);
 
   /**
    * Updates the medical status of a monkey to
@@ -66,7 +65,7 @@ public interface JungleSanctuary {
    * an isolation and medical check is finished.
    *
    * @param monkey Monkey to be sent to enclosure.
-   * @throws EnclosureTranferException if unhealthy monkey is transferred to enclosure
+   * @throws IllegalStateException if unhealthy monkey is transferred to enclosure
    */
   void sendMonkeyToEnclosure(Monkey monkey);
 
@@ -76,7 +75,7 @@ public interface JungleSanctuary {
    * required.
    *
    * @return List of food item and quantity to be shopped for
-   * monkeys in sanctuary.
+   *         monkeys in sanctuary.
    */
   String getShoppingList();
 
@@ -102,19 +101,19 @@ public interface JungleSanctuary {
    * Produces the list of monkeys along with their location
    * belonging to a particular species provided by the user.
    *
-   * @param SpecieDesignation type of Specie to be searched in the
+   * @param specieDesignation type of Specie to be searched in the
    *                          sanctuary.
    * @return List of monkeys with specie designation is same as the
-   * one provided by user.
+   *         one provided by user.
    */
-  String lookUpSpecies(Species SpecieDesignation);
+  String lookUpSpecies(Species specieDesignation);
 
   /**
    * Produces the list of monkeys filtered based on specie type
    * and ordered alphabetically.
    *
    * @return List of monkeys for every
-   * specie designation.
+   *         specie designation.
    */
   String getSpeciesList();
 }

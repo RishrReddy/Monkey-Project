@@ -1,0 +1,50 @@
+ **************** Species housed in Sanctuary are stated below (Alphabetic by Name)  ****************************** 
+Monkey ID: 1002, Name: Alice, SpecieDesignation: SAKI, currentLocation: ENCLOSURE, housingID: 101, age8, Favorite Food: FRUITS, weight: 34.0, sex: MALE, sizeMEDIUM, medicallyHealthy: true
+Monkey ID: 1004, Name: Ben, SpecieDesignation: TAMARIN, currentLocation: ENCLOSURE, housingID: 103, age4, Favorite Food: INSECTS, weight: 35.0, sex: MALE, sizeMEDIUM, medicallyHealthy: true
+Monkey ID: 1008, Name: Cal, SpecieDesignation: DRILL, currentLocation: ENCLOSURE, housingID: 106, age8, Favorite Food: FRUITS, weight: 14.0, sex: MALE, sizeSMALL, medicallyHealthy: true
+Monkey ID: 1003, Name: Clara, SpecieDesignation: HOWLER, currentLocation: ENCLOSURE, housingID: 102, age18, Favorite Food: TREESAP, weight: 10.0, sex: FEMALE, sizeLARGE, medicallyHealthy: true
+Monkey ID: 1006, Name: Jared, SpecieDesignation: MANGABEU, currentLocation: ENCLOSURE, housingID: 104, age7, Favorite Food: NUTS, weight: 13.0, sex: MALE, sizeMEDIUM, medicallyHealthy: true
+Monkey ID: 1005, Name: Mick, SpecieDesignation: HOWLER, currentLocation: ISOLATION, housingID: 505, age12, Favorite Food: LEAVES, weight: 23.0, sex: FEMALE, sizeLARGE, medicallyHealthy: false
+Monkey ID: 1007, Name: Olive, SpecieDesignation: GUEREZA, currentLocation: ENCLOSURE, housingID: 105, age15, Favorite Food: SEEDS, weight: 60.0, sex: FEMALE, sizeLARGE, medicallyHealthy: true
+Monkey ID: 1000, Name: Paula, SpecieDesignation: HOWLER, currentLocation: ISOLATION, housingID: 500, age10, Favorite Food: EGGS, weight: 20.0, sex: FEMALE, sizeSMALL, medicallyHealthy: false
+Monkey ID: 1009, Name: Zeke, SpecieDesignation: HOWLER, currentLocation: ENCLOSURE, housingID: 102, age11, Favorite Food: EGGS, weight: 20.0, sex: MALE, sizeMEDIUM, medicallyHealthy: true
+Monkey ID: 1001, Name: Zen, SpecieDesignation: SPIDER, currentLocation: ENCLOSURE, housingID: 100, age7, Favorite Food: NUTS, weight: 20.0, sex: FEMALE, sizeSMALL, medicallyHealthy: true
+
+
+ *************** Shopping list for the species housed in Sanctuary is : ********************* 
+INSECTS : 250 gr
+TREESAP : 500 gr
+FRUITS : 350 gr
+NUTS : 350 gr
+EGGS : 350 gr
+LEAVES : 500 gr
+SEEDS : 500 gr
+
+
+ **************** Looking up for monkeys belonging to HOWLER type *****************************  
+Monkey of type : HOWLER and name Paula is housed in ISOLATION with house ID : 500
+Monkey of type : HOWLER and name Clara is housed in ENCLOSURE with house ID : 102
+Monkey of type : HOWLER and name Mick is housed in ISOLATION with house ID : 505
+Monkey of type : HOWLER and name Zeke is housed in ENCLOSURE with house ID : 102
+
+
+ **************** Species Housed in Enclosure 102 (Sign) are : ****************************
+ ---> Monkey Name : Clara ,Sex : FEMALE ,Favorite Food : TREESAP
+ ---> Monkey Name : Zeke ,Sex : MALE ,Favorite Food : EGGS
+
+
+ **************** Species Housed in Enclosure 100 (Sign) are : ****************************
+ ---> Monkey Name : Zen ,Sex : FEMALE ,Favorite Food : NUTS
+
+
+ **************** Different Species Housed are (alphabetic species) : **********************
+Monkey of type : DRILL and name Cal is housed in ENCLOSURE with house ID : 106
+Monkey of type : GUEREZA and name Olive is housed in ENCLOSURE with house ID : 105
+Monkey of type : HOWLER and name Paula is housed in ISOLATION with house ID : 500
+Monkey of type : HOWLER and name Clara is housed in ENCLOSURE with house ID : 102
+Monkey of type : HOWLER and name Mick is housed in ISOLATION with house ID : 505
+Monkey of type : HOWLER and name Zeke is housed in ENCLOSURE with house ID : 102
+Monkey of type : MANGABEU and name Jared is housed in ENCLOSURE with house ID : 104
+Monkey of type : SAKI and name Alice is housed in ENCLOSURE with house ID : 101
+Monkey of type : SPIDER and name Zen is housed in ENCLOSURE with house ID : 100
+Monkey of type : TAMARIN and name Ben is housed in ENCLOSURE with house ID : 103

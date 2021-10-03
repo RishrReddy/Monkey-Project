@@ -5,23 +5,37 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-
 /**
  * Animal class implements the methods in interface JungleSanctuary.
  * The functionality to be performed on monkeys in sanctuary are implemented here.
  */
 public class Animal implements JungleSanctuary {
   private ArrayList<Monkey> allMonkeyList;
-  public static Housing housing = new HousingUnits(14, 20);
+  public  Housing housingUnit;
 
   /**
    * Default Constructor for Animal class
    * where list of monkeys is initiated.
    */
   public Animal() {
+    this.allMonkeyList = new ArrayList<Monkey>();
+  }
+
+  /**
+   * Constructor to create Animal object with given number
+   * of isolations and enclosures.
+   *
+   * @param isolations Number of isolation
+   * @param enclosures Number of enclosures
+   */
+  public Animal(int isolations, int enclosures) {
     if (this.allMonkeyList == null) {
-      this.allMonkeyList = new ArrayList<>();
+      this.allMonkeyList = new ArrayList<Monkey>();
     }
+    if (isolations < 0 || enclosures < 0) {
+      throw new IllegalArgumentException("Isolation and Housing cant be negative");
+    }
+    housingUnit = new HousingUnit(isolations, enclosures);
   }
 
   /**
@@ -37,6 +51,7 @@ public class Animal implements JungleSanctuary {
    * @param sex                Gender of the Monkey.
    * @param size               Size of the monkey.
    */
+  @Override
   public void addNewMonkey(String name, Species speciesDesignation, int age, double weight,
                            FavoriteFood favFood, Sex sex, double size) {
     if (age < 0 || weight < 0 || size < 0) {
@@ -46,13 +61,19 @@ public class Animal implements JungleSanctuary {
       throw new IllegalArgumentException("null values are not allowed in "
               + "the monkey specifications ");
     }
+
+    if (!containsFavFood(favFood) || !containsSex(sex)
+            || !containsSpecieDestination(speciesDesignation)) {
+      throw new IllegalArgumentException("Arguments are invalid");
+    }
+
     Monkey monkey = new Monkey(name, speciesDesignation, age, weight, favFood, sex, size);
     addNewMonkeyToSanctuary(monkey);
-    if (housing.checkAvailabilityInIsolation()) {
-      housing.sendMonkeyToIsolation(monkey);
+    if (housingUnit.checkAvailabilityInIsolation()) {
+      housingUnit.sendMonkeyToIsolation(monkey);
       monkey.updateMonkeyLocation(CurrentLocStatus.ISOLATION);
     } else {
-      System.out.println("Isolation Units are to full capacity. Please Wait");
+      System.out.println("Isolation Units are to full capacity.");
     }
     //this.houseUnit = housing;
   }
@@ -71,6 +92,7 @@ public class Animal implements JungleSanctuary {
    *
    * @return List of all monkeys housed in Sanctuary.
    */
+  @Override
   public List<Monkey> getAllMonkeys() {
     List<Monkey> monkey = new ArrayList<>();
     for (Monkey m : this.allMonkeyList) {
@@ -90,21 +112,7 @@ public class Animal implements JungleSanctuary {
    */
   @Override
   public String getAllMonkeysHoused() {
-    List<Monkey> monkeys = sortMonkeyListAlphabetically();
-    StringBuilder sb = new StringBuilder();
-    for (Monkey m : monkeys) {
-      if (m.getMonkeyLocation().equals(CurrentLocStatus.ISOLATION)
-              || m.getMonkeyLocation().equals(CurrentLocStatus.ENCLOSURE)) {
-        sb.append("Monkey ID: " + m.getMonkeyID() + ", Name: " + m.getMonkeyName()
-                + ", SpecieDesignation: " + m.getSpeciesDesignation()
-                + ", currentLocation: " + m.getMonkeyLocation() + ", housingID: "
-                + m.getMonkeyHousingID() + ", age" + m.getMonkeyAge() + ", Favorite Food: "
-                + m.getMonkeyFavFood() + ", weight: " + m.getMonkeyWeight() + ", sex: "
-                + m.getMonkeySex() + ", size" + m.getMonkeySize()
-                + ", medicallyHealthy: " + m.getMonkeyMedicalStatus() + "\n");
-      }
-    }
-    return sb.toString();
+    return this.toString();
   }
 
   /**
@@ -115,14 +123,14 @@ public class Animal implements JungleSanctuary {
    * @param enclosureId enclosure ID of the enclosure for which the
    *                    sign has to be produced.
    * @return String of details like Name,sex,and favorite food of the
-   * monkeys housed in a particular enclosure.
-  */
+   *         monkeys housed in a particular enclosure.
+   */
   @Override
   public String produceSign(int enclosureId) {
     ArrayList<Monkey> monkeyInEnclosure = new ArrayList<>();
     StringBuilder sb = new StringBuilder();
     for (Monkey mon : this.getAllMonkeys()) {
-      if (mon.getMonkeyHousingID() == (enclosureId)
+      if (mon.getMonkeyHousingId() == (enclosureId)
               && mon.getMonkeyLocation().equals(CurrentLocStatus.ENCLOSURE)) {
         monkeyInEnclosure.add(mon);
       }
@@ -144,10 +152,10 @@ public class Animal implements JungleSanctuary {
    */
   @Override
   public void updateMedicalHealthOfMonkey(Monkey monkey, boolean isHealthy) {
-    if (monkey.getMonkeyHousingID() > 0) {
+    if (monkey.getMonkeyHousingId() > 0) {
       monkey.updateMonkeyHealthStatus(isHealthy);
       if (monkey.getMonkeyLocation().equals(CurrentLocStatus.ENCLOSURE)) {
-        housing.sendMonkeyToIsolation(monkey);
+        housingUnit.sendMonkeyToIsolation(monkey);
         monkey.updateMonkeyLocation(CurrentLocStatus.ISOLATION);
       }
     }
@@ -161,15 +169,15 @@ public class Animal implements JungleSanctuary {
    * @throws RuntimeException if unhealthy monkey is transferred to enclosure
    */
   @Override
-  public void sendMonkeyToEnclosure(Monkey monkey) throws EnclosureTransferException {
+  public void sendMonkeyToEnclosure(Monkey monkey) throws IllegalStateException {
     if (monkey.getMonkeyLocation().equals(CurrentLocStatus.ISOLATION)
             || !monkey.getMonkeyMedicalStatus()) {
-      if (monkey.getMonkeyMedicalStatus() == true) {
-        boolean sentMonkeytoEnclosure = this.housing.checkAvailabilityInEnclosures(monkey);
+      if (monkey.getMonkeyMedicalStatus()) {
+        boolean sentMonkeytoEnclosure = housingUnit.checkAvailabilityInEnclosures(monkey);
       }
     } else {
-      throw new EnclosureTransferException(monkey.getMonkeyName()
-              + "is not eligible for being in enclosure!!");
+      throw new IllegalStateException(monkey.getMonkeyName()
+              + " is not eligible for being in enclosure!!");
     }
   }
 
@@ -179,8 +187,8 @@ public class Animal implements JungleSanctuary {
    * required.
    *
    * @return List of food item and quantity to be shopped for
-   * monkeys in sanctuary.
-  */
+   *         monkeys in sanctuary.
+   */
   @Override
   public String getShoppingList() {
     HashMap<FavoriteFood, Integer> shoppingList = obtainShoppingList();
@@ -190,7 +198,6 @@ public class Animal implements JungleSanctuary {
     }
     return sb.toString();
   }
-
 
   /**
    * Helper method obtain the shopping list
@@ -229,7 +236,7 @@ public class Animal implements JungleSanctuary {
     if (isolations < 0) {
       throw new IllegalArgumentException("Negative values not allowed");
     }
-    housing.increaseIsolations(10);
+    housingUnit.increaseIsolations(10);
   }
 
   /**
@@ -244,7 +251,7 @@ public class Animal implements JungleSanctuary {
     if (enclosures < 0) {
       throw new IllegalArgumentException("Negative values not allowed");
     }
-    housing.increaseEnclosures(enclosures);
+    housingUnit.increaseEnclosures(enclosures);
   }
 
   /**
@@ -254,8 +261,8 @@ public class Animal implements JungleSanctuary {
    * @param specieDesignation type of Specie to be searched in the
    *                          sanctuary.
    * @return List of monkeys with specie designation is same as the
-   * one provided by user. The list also provides the
-  */
+   *         one provided by user. The list also provides the
+   */
   @Override
   public String lookUpSpecies(Species specieDesignation) {
     boolean foundSpecie = false;
@@ -266,13 +273,14 @@ public class Animal implements JungleSanctuary {
                 || monkey.getMonkeyLocation().equals(CurrentLocStatus.ISOLATION)) {
           sb.append("Monkey of type : " + specieDesignation + " and name " + monkey.getMonkeyName()
                   + " is housed in " + monkey.getMonkeyLocation() + " with house ID : "
-                  + monkey.getMonkeyHousingID() + "\n");
+                  + monkey.getMonkeyHousingId() + "\n");
           foundSpecie = true;
         }
       }
     }
     if (!foundSpecie) {
       sb.append("None of the monkey of type " + specieDesignation + " are housed in the sanctuary");
+      throw new IllegalArgumentException("Specie is not present in Enclosures ");
     }
     return sb.toString();
   }
@@ -292,8 +300,6 @@ public class Animal implements JungleSanctuary {
 
   /**
    * Helper method for implementing comparison between 2 monkey objects.
-   *
-   * @return Result of comparison between 2 monkey names.
    */
   private static final Comparator<Monkey> MonkeyNameComparator = (m1, m2) -> {
     String monkeyName1 = m1.getMonkeyName().toUpperCase();
@@ -302,14 +308,14 @@ public class Animal implements JungleSanctuary {
   };
 
   /**
-  * Produces the list of monkeys filtered based on specie type
-  * and ordered alphabetically.
-  *
-  * @return List of monkeys for every
-  * specie designation.
-  */
+   * Produces the list of monkeys filtered based on specie type
+   * and ordered alphabetically.
+   *
+   * @return List of monkeys for every
+   *         specie designation.
+   */
+  @Override
   public String getSpeciesList() {
-    boolean foundSpecie = false;
     StringBuilder sb = new StringBuilder();
     for (Species s : Species.values()) {
       for (Monkey monkey : allMonkeyList) {
@@ -318,7 +324,7 @@ public class Animal implements JungleSanctuary {
                   || monkey.getMonkeyLocation().equals(CurrentLocStatus.ISOLATION)) {
             sb.append("Monkey of type : " + s + " and name " + monkey.getMonkeyName()
                     + " is housed in " + monkey.getMonkeyLocation() + " with house ID : "
-                    + monkey.getMonkeyHousingID() + "\n");
+                    + monkey.getMonkeyHousingId() + "\n");
           }
         }
       }
@@ -354,6 +360,52 @@ public class Animal implements JungleSanctuary {
   @Override
   public int hashCode() {
     return this.getAllMonkeys().hashCode();
+  }
+
+  @Override
+  public String toString() {
+    List<Monkey> monkeys = sortMonkeyListAlphabetically();
+    StringBuilder sb = new StringBuilder();
+    for (Monkey m : monkeys) {
+      if (m.getMonkeyLocation().equals(CurrentLocStatus.ISOLATION)
+              || m.getMonkeyLocation().equals(CurrentLocStatus.ENCLOSURE)) {
+        sb.append("Monkey ID: " + m.getMonkeyId() + ", Name: " + m.getMonkeyName()
+                + ", SpecieDesignation: " + m.getSpeciesDesignation()
+                + ", currentLocation: " + m.getMonkeyLocation() + ", housingID: "
+                + m.getMonkeyHousingId() + ", age" + m.getMonkeyAge() + ", Favorite Food: "
+                + m.getMonkeyFavFood() + ", weight: " + m.getMonkeyWeight() + ", sex: "
+                + m.getMonkeySex() + ", size" + m.getMonkeySize()
+                + ", medicallyHealthy: " + m.getMonkeyMedicalStatus() + "\n");
+      }
+    }
+    return sb.toString();
+  }
+
+  protected boolean containsFavFood(FavoriteFood favfood) {
+    for (FavoriteFood c : FavoriteFood.values()) {
+      if (c.equals(favfood)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  protected boolean containsSex(Sex sex) {
+    for (Sex s : Sex.values()) {
+      if (s.equals(sex)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  protected boolean containsSpecieDestination(Species specie) {
+    for (Species s : Species.values()) {
+      if (s.equals(specie)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

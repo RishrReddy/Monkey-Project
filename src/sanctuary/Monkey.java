@@ -17,7 +17,7 @@ public final class Monkey extends Animal {
   private boolean medicallyHealthy;
   private final double size;
   private CurrentLocStatus location;
-  private int housingID;
+  private int housingId;
   private static final AtomicInteger monkeyIDGenerator = new AtomicInteger(1000);
 
   /**
@@ -39,9 +39,14 @@ public final class Monkey extends Animal {
       throw new IllegalArgumentException("Negative Values are not accepted as attributes");
     }
     if (speciesDesignation == null || favFood == null || sex == null) {
-      throw new IllegalArgumentException("null values are not allowed in " +
-              "the monkey specifications ");
+      throw new IllegalArgumentException("null values are not allowed in "
+              + "the monkey specifications ");
     }
+    if (!containsFavFood(favFood) || !containsSex(sex)
+            || !containsSpecieDestination(speciesDesignation)) {
+      throw new IllegalArgumentException("Arguments are invalid");
+    }
+
     this.id = monkeyIDGenerator.getAndIncrement();
     this.name = name;
     this.speciesDesignation = speciesDesignation;
@@ -52,21 +57,7 @@ public final class Monkey extends Animal {
     this.medicallyHealthy = true;
     this.size = size;
     this.location = CurrentLocStatus.UNASSIGNED;
-    this.housingID = 0;
-  }
-
-  public Monkey(Monkey m){
-    this.id = m.getMonkeyID();
-    this.name = m.getMonkeyName();
-    this.speciesDesignation = m.getSpeciesDesignation();
-    this.age = m.getMonkeyAge();
-    this.weight = m.getMonkeyWeight();
-    this.favFood = m.getMonkeyFavFood();
-    this.sex = m.getMonkeySex();
-    this.medicallyHealthy = true;
-    this.size = m.getMonkeySize().equals(Size.SMALL)? 5 : m.getMonkeySize().equals(Size.MEDIUM) ? 15 : 25 ;
-    this.location = CurrentLocStatus.UNASSIGNED;
-    this.housingID = 0;
+    this.housingId = 0;
   }
 
   /**
@@ -130,13 +121,13 @@ public final class Monkey extends Animal {
    */
   public Size getMonkeySize() {
     Size monkeySize;
-    monkeySize = this.size < 10 ? Size.SMALL : (this.size >= 10 && this.size < 20) ?
-            Size.MEDIUM : Size.LARGE;
+    monkeySize = this.size < 10 ? Size.SMALL : (this.size >= 10 && this.size < 20)
+            ? Size.MEDIUM : Size.LARGE;
     return monkeySize;
   }
 
   /**
-   * Getter method to return monkey's medical status
+   * Getter method to return monkey's medical status.
    *
    * @return Meidcal status of the monkey
    */
@@ -145,25 +136,25 @@ public final class Monkey extends Animal {
   }
 
   /**
-   * Getter method to return monkey's ID
+   * Getter method to return monkey's ID.
    *
    * @return ID of the monkey
    */
-  public int getMonkeyID() {
+  public int getMonkeyId() {
     return id;
   }
 
   /**
-   * Getter method to return monkey's current housing ID
+   * Getter method to return monkey's current housing ID.
    *
    * @return Housing ID where monkey is currently held.
    */
-  public int getMonkeyHousingID() {
-    return this.housingID;
+  public int getMonkeyHousingId() {
+    return this.housingId;
   }
 
   /**
-   * Getter method to return monkey's favorite food
+   * Getter method to return monkey's favorite food.
    *
    * @return Name of the monkey
    */
@@ -173,10 +164,12 @@ public final class Monkey extends Animal {
 
   /**
    * Method to update the location of Monkey when it is transferred from one place to another.
+   *
+   * @param location Location to be updated.
    */
   protected void updateMonkeyLocation(CurrentLocStatus location) {
-    if((this.location.equals(CurrentLocStatus.UNASSIGNED)) &&
-            location.equals(CurrentLocStatus.ENCLOSURE)){
+    if ((this.location.equals(CurrentLocStatus.UNASSIGNED))
+            && location.equals(CurrentLocStatus.ENCLOSURE)) {
       throw new IllegalStateException("Cant send monkey direct from UNASSIGNED TO ENCLOSURE");
     }
     this.location = location;
@@ -184,16 +177,20 @@ public final class Monkey extends Animal {
 
   /**
    * Method to update the location of Monkey when it is assigned to isolation/enclosure.
+   *
+   * @param houseId housingId to be updated
    */
-  protected void updateMonkeyHouseID(int houseID) {
-    if(houseID<0) {
+  protected void updateMonkeyHouseId(int houseId) {
+    if (houseId < 0) {
       throw new IllegalArgumentException("houseID can't be negative");
     }
-      this.housingID = houseID;
+    this.housingId = houseId;
   }
 
   /**
    * Method to update the health status of Monkey as healthy or unhealthy.
+   *
+   * @param isHealthy the medical status of the monkey
    */
   protected void updateMonkeyHealthStatus(boolean isHealthy) {
     this.medicallyHealthy = isHealthy;
